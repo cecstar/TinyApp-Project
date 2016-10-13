@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>SnipSnip</title>
+</head>
+<body>
+  <header>
+        <% include ./partials/_headerta %>
+  </header>
+  <h3>SnipSnip that URL!</h3>
+  <ul>
+    <% for(var key in urls) { %>
+      <li>
+        <a href = '/urls/<%=key%>'> <%= key %></a>
+        <% }; %>
+      </li>
+  </ul>
+
+    <p>more fun stuff, party on wayne!</p>
+
+    <section>
+      <div>
+      <a href="/" class="btn btn-lrg btn-primary">Home</a>
+      <a href="/urls/new">make urls</a>
+    </section>
+    </div>
+</body>
+</html>
