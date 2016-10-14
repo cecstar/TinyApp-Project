@@ -11,12 +11,13 @@
   <ul>
     <% for(var key in urls) { %>
       <li>
-        <a href = '/urls/<%=key%>'> <%= key %></a>
-        <% }; %>
+        <a href = "/urls/<%=key%>"> <%= key %></a>
+        <form method="POST" action="/urls/<%=key%>/delete">
+          <input type="submit" value="Delete">
+        </form>
       </li>
+    <% }; %>
   </ul>
-
-    <p>more fun stuff, party on wayne!</p>
 
     <section>
       <div>

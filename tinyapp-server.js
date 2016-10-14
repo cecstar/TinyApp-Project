@@ -40,11 +40,6 @@ app.get("/urls/new", (req, res) => {
   res.render("urls_newta");
 });
 
-// app.post("/urls/new", (req, res) => {
-//   console.log(req.body.longURL);
-//   res.redirect("/urls");
-// });
-
 app.get("/urls/:id", (req, res) => {
   let templateVars = { shortURL: req.params.id };
   let longURL = urlDatabase[req.params.id];
@@ -52,10 +47,15 @@ app.get("/urls/:id", (req, res) => {
   //res.redirect('/');
 });
 
+app.post("/urls/:id/delete", (req, res) => {
+  delete urlDatabase[req.params.id];
+  res.redirect("/urls");
+});
+
 app.get("/u/:id", (req, res) => {
   let longURL = urlDatabase[req.params.id];
   res.redirect(longURL);
-})
+});
 
 function generateRandomString() {
   let text = "";
