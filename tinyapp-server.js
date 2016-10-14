@@ -2,11 +2,13 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const PORT = process.env.PORT || 8080;
 
 //middleware
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
 
 //database
 
@@ -14,10 +16,21 @@ const urlDatabase = {
   "b2xVn2": "http://www.lighthouselabs.ca",
   "9sm5xK": "http://www.google.com"
 };
-
+//yas queen!
+function generateRandomString() {
+  let text = "";
+  let possible = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm1234567890";
+  for(let i = 0; i < 7; i++) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+  return text;
+};
 //sending and recieving
 app.get("/", (req, res) => {
-  res.render("hometa");
+  let templateVars = {
+    username: req.cookies.username,
+    };
+  res.render("hometa", templateVars);
 });
 
 app.get("/urls.json", (req, res) => {
@@ -25,7 +38,10 @@ app.get("/urls.json", (req, res) => {
 });
 
 app.get("/urls", (req, res) => {
-  let templateVars = { urls: urlDatabase };
+  let templateVars = {
+  urls: urlDatabase,
+  username: req.cookies.username
+  };
   res.render("urls_indexta", templateVars);
 });
 
@@ -37,12 +53,16 @@ app.post("/urls", (req, res) => {
 });
 
 app.get("/urls/new", (req, res) => {
-  res.render("urls_newta");
+  let templateVars = {
+    username: req.cookies.username,
+  };
+  res.render("urls_newta", templateVars);
 });
 
 app.get("/urls/:id", (req, res) => {
   let longURL = urlDatabase[req.params.id];
   let templateVars = {
+    username: req.cookies.username,
     shortURL: req.params.id,
     longURL: longURL,
     urlDatabase: urlDatabase
@@ -66,14 +86,16 @@ app.get("/u/:id", (req, res) => {
   res.redirect(longURL);
 });
 
-function generateRandomString() {
-  let text = "";
-  let possible = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm1234567890";
-  for(let i = 0; i < 7; i++) {
-    text += possible.charAt(Math.floor(Math.random() * possible.length));
-  }
-  return text;
-};
+app.post("/login", (req, res) => {
+  res.cookie("username", req.body.username);
+  console.log(res.cookie.username);
+  res.redirect("/");
+})
+
+app.post("/logout", (req, res) => {
+  res.clearCookie("username");
+  res.redirect("/");
+})
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);

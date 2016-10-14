@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
   <head></head>
+    <body style="font-size:20px; padding:50px;">
+      <header>
+            <% include ./partials/_headerta %>
+      </header>
 
-  <body style="font-size:20px; padding:50px;">
+        <form action="/urls" method="POST" style="margin:150px;">
 
-    <% include partials/_headerta %>
+          <label for="longURL">Enter a URL:</label>
 
-    <form action="/urls" method="POST" style="margin:150px;">
+          <input id="longURL" type="text" name="longURL" placeholder="http://" style="width: 300px">
 
-      <label for="longURL">Enter a URL:</label>
+          <input type="submit" value="Submit">
 
-      <input id="longURL" type="text" name="longURL" placeholder="http://" style="width: 300px">
-
-      <input type="submit" value="Submit">
-
-    </form>
-  </body>
+        </form>
+</body>
 </html>
