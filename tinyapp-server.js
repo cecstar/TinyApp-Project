@@ -17,7 +17,7 @@ const urlDatabase = {
 
 //sending and recieving
 app.get("/", (req, res) => {
-  res.end("Hello!");
+  res.render("hometa");
 });
 
 app.get("/urls.json", (req, res) => {
@@ -29,22 +29,33 @@ app.get("/urls", (req, res) => {
   res.render("urls_indexta", templateVars);
 });
 
+app.post("/urls", (req, res) => {
+  console.log(req.body.longURL);
+  let shortURL = generateRandomString();
+  urlDatabase[shortURL] = req.body.longURL;
+  res.redirect("/urls/" + shortURL);
+});
+
 app.get("/urls/new", (req, res) => {
   res.render("urls_newta");
 });
 
-app.post("/urls", (req, res) => {
-  console.log(req.body);
-
-  res.redirect("/urls")
-});
+// app.post("/urls/new", (req, res) => {
+//   console.log(req.body.longURL);
+//   res.redirect("/urls");
+// });
 
 app.get("/urls/:id", (req, res) => {
   let templateVars = { shortURL: req.params.id };
-  let longUrl = urlDatabase[req.params.id];
+  let longURL = urlDatabase[req.params.id];
   res.render("urls_showta", templateVars);
   //res.redirect('/');
 });
+
+app.get("/u/:id", (req, res) => {
+  let longURL = urlDatabase[req.params.id];
+  res.redirect(longURL);
+})
 
 function generateRandomString() {
   let text = "";
