@@ -33,18 +33,27 @@ app.get("/urls/new", (req, res) => {
   res.render("urls_newta");
 });
 
-app.get("/urls/:id", (req, res) => {
-  let templateVars = { shortURL: req.params.id };
-  let longUrl = urlDatabase[req.params.id];
-  res.render("urls_show", templateVars);
-  // res.redirect('/');
-  });
-
 app.post("/urls", (req, res) => {
   console.log(req.body);
 
   res.redirect("/urls")
 });
+
+app.get("/urls/:id", (req, res) => {
+  let templateVars = { shortURL: req.params.id };
+  let longUrl = urlDatabase[req.params.id];
+  res.render("urls_showta", templateVars);
+  //res.redirect('/');
+});
+
+function generateRandomString() {
+  let text = "";
+  let possible = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm1234567890";
+  for(let i = 0; i < possible.length; i++) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+  return text;
+};
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
