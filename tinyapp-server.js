@@ -49,7 +49,7 @@ app.get("/urls/:id", (req, res) => {
 function generateRandomString() {
   let text = "";
   let possible = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm1234567890";
-  for(let i = 0; i < possible.length; i++) {
+  for(let i = 0; i < 7; i++) {
     text += possible.charAt(Math.floor(Math.random() * possible.length));
   }
   return text;
