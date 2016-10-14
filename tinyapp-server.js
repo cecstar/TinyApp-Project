@@ -41,10 +41,19 @@ app.get("/urls/new", (req, res) => {
 });
 
 app.get("/urls/:id", (req, res) => {
-  let templateVars = { shortURL: req.params.id };
   let longURL = urlDatabase[req.params.id];
+  let templateVars = {
+    shortURL: req.params.id,
+    longURL: longURL,
+    urlDatabase: urlDatabase
+  };
   res.render("urls_showta", templateVars);
-  //res.redirect('/');
+});
+
+app.post("/urls/:id", (req, res) => {
+  let shortURL = req.params.id;
+  urlDatabase[shortURL] = req.body.longURL;
+  res.redirect("/urls/" + shortURL);
 });
 
 app.post("/urls/:id/delete", (req, res) => {
