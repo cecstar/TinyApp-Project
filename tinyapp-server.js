@@ -25,7 +25,7 @@ function generateRandomString() {
   }
   return text;
 };
-//sending and recieving
+//routing
 app.get("/", (req, res) => {
   let templateVars = {
     username: req.cookies.username,
@@ -76,14 +76,14 @@ app.post("/urls/:id", (req, res) => {
   res.redirect("/urls/" + shortURL);
 });
 
-app.post("/urls/:id/delete", (req, res) => {
-  delete urlDatabase[req.params.id];
-  res.redirect("/urls");
-});
-
 app.get("/u/:id", (req, res) => {
   let longURL = urlDatabase[req.params.id];
   res.redirect(longURL);
+});
+
+app.post("/urls/:id/delete", (req, res) => {
+  delete urlDatabase[req.params.id];
+  res.redirect("/urls");
 });
 
 app.post("/login", (req, res) => {
