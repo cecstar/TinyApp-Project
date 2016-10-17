@@ -16,7 +16,7 @@ const urlDatabase = {
   "b2xVn2": "http://www.lighthouselabs.ca",
   "9sm5xK": "http://www.google.com"
 };
-//yas queen!
+//Random string generator
 function generateRandomString() {
   let text = "";
   let possible = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm1234567890";
@@ -25,7 +25,7 @@ function generateRandomString() {
   }
   return text;
 };
-//routing
+//Routing
 app.get("/", (req, res) => {
   let templateVars = {
     username: req.cookies.username,
@@ -85,10 +85,21 @@ app.post("/urls/:id/delete", (req, res) => {
   delete urlDatabase[req.params.id];
   res.redirect("/urls");
 });
+//Create a registration page
+app.get("/register", (req, res) => {
+  let templateVars = {
+    email: req.body.email,
+  };
+  res.render("urls_newta", templateVars);
+})
+
+app.post("/register", (req, res) => {
+  res.cookie("email", req.body.email);
+  res.redirect("/");
+})
 
 app.post("/login", (req, res) => {
   res.cookie("username", req.body.username);
-  console.log(res.cookie.username);
   res.redirect("/");
 })
 
