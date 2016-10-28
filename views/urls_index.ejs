@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>SnipSnip</title>
+</head>
+  <body>
+    <header>
+      <% include ./partials/_registration %>
+      <% include ./partials/_header %>
+      <a href="/" class="btn btn-lrg btn-primary">Head Home, Homeslice! </a>
+    </header>
+    <a href="/urls/new" class="btn btn-lrg btn-primary">Shorten Dat Shizzle</a>
+    <ul>
+      <% for(var key in urls) { %>
+        <li>
+          <a href="/urls/<%=key%>"><%= key %></a>
+          <a href="<%= urls[key] %>"><%= urls[key] %></a>
+          <form method="POST" action="/urls/<%= key %>/delete">
+            <input type="submit" value="Delete">
+          </form>
+        </li>
+      <% }; %>
+    </ul>
+  </body>
+</html>

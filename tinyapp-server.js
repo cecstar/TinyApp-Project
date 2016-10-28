@@ -1,36 +1,30 @@
-//required modules
+//Required modules
 const express = require("express");
-const app = express();
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const PORT = process.env.PORT || 8080;
+const app = express();
 
-//middleware
+//Middleware
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-//database
-
+//Database
 const urlDatabase = {
   "b2xVn2": "http://www.lighthouselabs.ca",
   "9sm5xK": "http://www.google.com"
 };
 //Random string generator
 function generateRandomString() {
-  let text = "";
-  let possible = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm1234567890";
-  for(let i = 0; i < 7; i++) {
-    text += possible.charAt(Math.floor(Math.random() * possible.length));
-  }
-  return text;
+  return Math.random().toString(36).substring(2,8);
 };
 //Routing
 app.get("/", (req, res) => {
   let templateVars = {
     username: req.cookies.username,
     };
-  res.render("hometa", templateVars);
+  res.render("home", templateVars);
 });
 
 app.get("/urls.json", (req, res) => {
@@ -42,7 +36,7 @@ app.get("/urls", (req, res) => {
   urls: urlDatabase,
   username: req.cookies.username
   };
-  res.render("urls_indexta", templateVars);
+  res.render("urls_index", templateVars);
 });
 
 app.post("/urls", (req, res) => {
@@ -56,7 +50,7 @@ app.get("/urls/new", (req, res) => {
   let templateVars = {
     username: req.cookies.username,
   };
-  res.render("urls_newta", templateVars);
+  res.render("urls_new", templateVars);
 });
 
 app.get("/urls/:id", (req, res) => {
@@ -67,7 +61,7 @@ app.get("/urls/:id", (req, res) => {
     longURL: longURL,
     urlDatabase: urlDatabase
   };
-  res.render("urls_showta", templateVars);
+  res.render("urls_show", templateVars);
 });
 
 app.post("/urls/:id", (req, res) => {
@@ -90,7 +84,7 @@ app.get("/register", (req, res) => {
   let templateVars = {
     email: req.body.email,
   };
-  res.render("urls_newta", templateVars);
+  res.render("urls_new", templateVars);
 })
 
 app.post("/register", (req, res) => {

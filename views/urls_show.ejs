@@ -5,16 +5,15 @@
   </head>
   <body>
     <header>
-          <p><% include ./partials/_registration %></p>
-          <p><% include ./partials/_headerta %></p>
+      <% include ./partials/_registration %>
+      <% include ./partials/_header %>
+      <a href="/urls">Shortened Snips</a>
     </header>
     <h2><%= shortURL %></h2>
-
     <form method="POST" action="/urls/<%= shortURL%>">
       <input type="text" name="longURL" value="<%=longURL%>">
       <input type="submit" value="Edit">
-
-          <a href="/urls" class="btn btn-lrg btn-primary">Back to URLs</a>
+      <a href="/urls" class="btn btn-lrg btn-primary">Back to URLs</a>
     </form>
   </body>
 </html>
