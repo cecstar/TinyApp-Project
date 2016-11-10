@@ -27,10 +27,6 @@ app.get("/", (req, res) => {
   res.render("home", templateVars);
 });
 
-app.get("/urls.json", (req, res) => {
-  res.json(urlDatabase);
-});
-
 app.get("/urls", (req, res) => {
   let templateVars = {
   urls: urlDatabase,
@@ -79,7 +75,7 @@ app.post("/urls/:id/delete", (req, res) => {
   delete urlDatabase[req.params.id];
   res.redirect("/urls");
 });
-//Create a registration page
+
 app.get("/register", (req, res) => {
   let templateVars = {
     email: req.body.email,
